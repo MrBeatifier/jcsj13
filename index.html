@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Retro Site</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Comic Sans MS", cursive;
+      text-align: center;
+      color: yellow;
+
+      /* 🌄 BACKGROUND IMAGE:
+         You can replace this in CONFIG below */
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .box {
+      background: rgba(0,0,0,0.7);
+      padding: 20px;
+      margin: 20px auto;
+      width: 70%;
+      border: 5px dashed hotpink;
+      color: white;
+    }
+
+    /* 🖼️ GIF STYLE */
+    .gif {
+      width: 120px;
+      margin: 10px;
+    }
+
+    marquee {
+      color: cyan;
+      font-size: 20px;
+    }
+
+    /* 🖱️ CURSOR TRAIL DOT */
+    .trail {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: lime;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: fade 1s forwards;
+    }
+
+    @keyframes fade {
+      to {
+        opacity: 0;
+        transform: scale(0);
+      }
+    }
+
+    /* 🔌 ENTER SCREEN */
+    #enter {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: black;
+      color: lime;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+    }
+
+    button {
+      font-size: 25px;
+      padding: 10px 20px;
+      background: lime;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- 🔧 CONFIG SECTION (EDIT ONLY THIS AREA) -->
+<script>
+const CONFIG = {
+
+  /* 🏷️ PAGE TITLE (browser tab text) */
+  title: "jcsj13",
+
+  /* 🌄 BACKGROUND IMAGE
+     👉 Replace with:
+     - a GIF URL OR
+     - an image in your repo like "bg.gif" */
+  background: "IMG_1345.JPG",
+
+  /* 📢 SCROLLING TEXT */
+  marquee: "💀Percs30-39 July-13-26💀",
+
+  /* 🖼️ GIF LIST
+     👉 To add your own:
+     - upload files into GitHub repo
+     - then replace "gif1.gif" etc */
+  gifs: [
+    "albumcover.png",
+    "albumcover.png",
+    "albumcover.png"
+  ],
+
+  /* 🎵 MP3 FILE
+     👉 Upload your file like: beat.mp3
+     👉 Then change this name */
+  mp3: "ahh.mp3",
+
+  /* ✏️ MAIN TEXT */
+  mainText: "JOHN CANNABIS SKYLINE JOHNSTON XIII"
+};
+</script>
+
+<!-- 🔌 ENTER SCREEN (click to start music) -->
+<div id="enter">
+  <h1>CLICK TO ENTER SITE</h1>
+  <button onclick="enterSite()">ENTER</button>
+</div>
+
+<!-- 🧠 MAIN CONTENT -->
+<h1 id="mainText"></h1>
+<marquee id="marquee"></marquee>
+
+<div class="box" id="gifBox"></div>
+
+<!-- 🎵 AUDIO PLAYER (MP3) -->
+<audio id="audio" loop>
+  <!-- 👉 This gets set automatically from CONFIG.mp3 -->
+  <source id="audioSource" src="">
+</audio>
+
+<script>
+
+  /* ⚙️ APPLY CONFIG SETTINGS */
+  document.title = CONFIG.title;
+  document.body.style.backgroundImage = `url(${CONFIG.background})`;
+
+  document.getElementById("mainText").innerText = CONFIG.mainText;
+  document.getElementById("marquee").innerText = CONFIG.marquee;
+
+  /* 🖼️ LOAD GIFS AUTOMATICALLY */
+  const gifBox = document.getElementById("gifBox");
+
+  CONFIG.gifs.forEach(gif => {
+    const img = document.createElement("img");
+    img.src = gif; // 👉 replace GIFs in CONFIG above
+    img.className = "gif";
+    gifBox.appendChild(img);
+  });
+
+  /* 🎵 SET MP3 FILE */
+  document.getElementById("audioSource").src = CONFIG.mp3;
+
+  /* 🔌 ENTER SITE (starts music) */
+  function enterSite() {
+    document.getElementById("enter").style.display = "none";
+
+    const audio = document.getElementById("audio");
+    audio.load(); // reloads MP3
+    audio.play().catch(() => {
+      alert("Click again if audio doesn't start (browser restriction)");
+    });
+  }
+
+  /* 🖱️ CURSOR TRAIL EFFECT
+     👉 Creates glowing dots behind mouse */
+  document.addEventListener("mousemove", function(e) {
+    const dot = document.createElement("div");
+    dot.className = "trail";
+    dot.style.left = e.pageX + "px";
+    dot.style.top = e.pageY + "px";
+
+    document.body.appendChild(dot);
+
+    setTimeout(() => {
+      dot.remove();
+    }, 1000);
+  });
+
+</script>
+
+</body>
+</html>
