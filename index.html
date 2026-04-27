@@ -15,7 +15,37 @@
       background-size: 100% 100%;
       background-repeat: repeat;
     }
+.flash-box {
+  position: fixed;      /* sticks to screen */
+  bottom: 20px;         /* distance from bottom */
+  right: 20px;          /* distance from right */
 
+  width: 250px;
+  padding: 15px;
+
+  background: black;
+  color: lime;
+  border: 5px dashed red;
+  font-size: 16px;
+  font-family: "Comic Sans MS", cursive;
+  text-align: center;
+
+  z-index: 9999;        /* keeps it on top */
+
+  /* flashing effect */
+  animation: flash 0.5s infinite alternate, bounce 2s infinite;
+}
+
+@keyframes flash {
+  0% {
+    background: black;
+    color: lime;
+  }
+  100% {
+    background: red;
+    color: yellow;
+  }
+}
     .box {
       background: rgba(0,0,0,0.7);
       padding: 20px;
